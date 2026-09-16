@@ -11,3 +11,11 @@ def test_rms_of_constant_signal() -> None:
 #Calculate the peak-to-peak voltage and verify that the result is approximately 7.0
 def test_peak_to_peak() -> None:
     assert peak_to_peak([-2.0, 1.0, 5.0]) == pytest.approx(7.0)
+
+def test_rms_rejects_empty_input() -> None:
+    with pytest.raises(ValueError, match="Samples must not be empty"):
+        rms([])
+
+def test_peak_to_peak_rejects_empty_input() -> None:
+    with pytest.raises(ValueError, match="Samples must not be empty"):
+        peak_to_peak([])
