@@ -42,3 +42,25 @@ def moving_average(samples: Sequence[float], window_size: int) -> list[float]:
         results.append(average)
 
     return results
+
+def threshold_crossings(samples: Sequence[float], threshold: float) -> list[int]:
+    """Indicate when a sample crosses or reaches the given threshold in either direction."""
+
+    if not samples:
+        raise ValueError("samples must not be empty")
+
+    crossings: list[int] = []
+
+    for index in range(1, len(samples)): # Start at index 1 since we need atleast 2 samples for a crossing
+        previous_sample = samples[index - 1]
+        current_sample = samples[index]
+
+        # Detect upward crossing
+        if previous_sample < threshold and current_sample >= threshold:
+            crossings.append(index)
+
+        # Detect downward crossing 
+        elif previous_sample > threshold and current_sample <= threshold:
+            crossings.append(index)
+
+    return crossings            
